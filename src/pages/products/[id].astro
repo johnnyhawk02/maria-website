@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import InstagramButton from '../../components/InstagramButton.astro';
+import { getCollection, render } from 'astro:content';
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  return products.map((p) => ({ params: { id: p.id }, props: { product: p } }));
+}
+const { product } = Astro.props;
+const d = product.data;
+const { Content } = await render(product);
+const photos = [d.image, ...d.photos].filter(Boolean);
+---
+<Base title={d.title}>
+  <section>
+    <div class="wrap product">
+      <div class="photos">
+        {photos.map((src, i) => <img src={src} alt={i === 0 ? d.title : `${d.title} photo ${i + 1}`} width="800" height="800" loading={i ? 'lazy' : 'eager'} />)}
+      </div>
+      <div>
+        <p><a href="/products/">&larr; All products</a></p>
+        <h1>{d.title}</h1>
+        {d.price && <p class="price big">{d.price}</p>}
+        <div class="prose"><Content /></div>
+        <div class="actions">
+          <InstagramButton label="Message us to order" dm />
+          <InstagramButton label="See more on Instagram" variant="outline" />
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .product { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .photos { display: grid; gap: 14px; }
+  .photos img { border-radius: var(--radius); aspect-ratio: 1; object-fit: cover; width: 100%; }
+  .big { font-size: 1.3rem; }
+  @media (max-width: 800px) { .product { grid-template-columns: 1fr; gap: 24px; } }
+</style>

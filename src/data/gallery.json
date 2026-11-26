@@ -1,0 +1,10 @@
+{
+  "items": [
+    { "image": "/images/uploads/gallery-1.svg", "caption": "Hen party tees" },
+    { "image": "/images/uploads/gallery-2.svg", "caption": "Personalised kids' hoodies" },
+    { "image": "/images/uploads/gallery-3.svg", "caption": "Teacher gift totes" },
+    { "image": "/images/uploads/gallery-4.svg", "caption": "Football team shirts" },
+    { "image": "/images/uploads/gallery-5.svg", "caption": "Birthday glitter vinyl" },
+    { "image": "/images/uploads/gallery-6.svg", "caption": "Wedding favours" }
+  ]
+}

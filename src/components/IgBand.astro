@@ -1,0 +1,20 @@
+---
+import site from '../data/site.json';
+import InstagramButton from './InstagramButton.astro';
+const { heading = 'See our latest makes on Instagram', text = 'We post new designs, behind-the-scenes and customer orders every week. Follow along, or send us a message to order.' } = Astro.props;
+---
+<section>
+  <div class="wrap">
+    <div class="ig-band">
+      <h2>{heading}</h2>
+      <p class="lead">{text}</p>
+      <div class="actions">
+        <InstagramButton label={`Follow @${site.instagram_handle}`} variant="light" />
+        <InstagramButton label="Message us to order" dm variant="outline-light" />
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  :global(.btn-outline-light) { border: 2px solid #fff; color: #fff; }
+</style>

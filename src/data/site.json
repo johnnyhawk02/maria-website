@@ -1,0 +1,19 @@
+{
+  "business_name": "Your Business Name",
+  "tagline": "Custom t-shirts, Cricut designs and personalised gifts, made by hand.",
+  "instagram_handle": "yourbusiness",
+  "hero_heading": "Made-to-order tees and Cricut creations",
+  "hero_text": "Personalised t-shirts, hoodies, tote bags and gifts for birthdays, hen dos, teams and special days. See our latest work and message us on Instagram to order.",
+  "hero_image": "/images/uploads/hero.svg",
+  "about_heading": "Hello, we're Your Business Name",
+  "about_text": "Every piece is designed, cut and pressed by hand at our little studio. We love turning your ideas into something you can wear or gift. Tell us what you have in mind and we'll make it happen.",
+  "custom_heading": "Want something custom?",
+  "custom_text": "Got an idea, a photo or a name you want on something? We do one-offs and group orders.",
+  "custom_steps": [
+    { "title": "Send us a message", "text": "DM us on Instagram with your idea, the item, sizes and when you need it." },
+    { "title": "We design it", "text": "We'll send you a mock-up and a price before anything is made." },
+    { "title": "Collect or post", "text": "Once you're happy, we make it and arrange collection or delivery." }
+  ],
+  "location": "Based in Your Town",
+  "email": ""
+}

@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import InstagramButton from '../components/InstagramButton.astro';
+import ProductCard from '../components/ProductCard.astro';
+import IgBand from '../components/IgBand.astro';
+import site from '../data/site.json';
+import gallery from '../data/gallery.json';
+import { getCollection } from 'astro:content';
+const all = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);
+const featured = (all.filter((p) => p.data.featured).length ? all.filter((p) => p.data.featured) : all).slice(0, 6);
+const galleryPreview = (gallery.items ?? []).slice(0, 6);
+---
+<Base>
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div>
+        <h1>{site.hero_heading}</h1>
+        <p class="lead">{site.hero_text}</p>
+        <div class="actions">
+          <InstagramButton label={`Follow @${site.instagram_handle}`} />
+          <InstagramButton label="Message us to order" dm variant="outline" />
+        </div>
+      </div>
+      <img class="hero-img" src={site.hero_image} alt="" width="800" height="800" />
+    </div>
+  </section>
+
+  {featured.length > 0 && (
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Popular makes</h2>
+          <a href="/products/">See everything &rarr;</a>
+        </div>
+        <div class="card-grid">{featured.map((p) => <ProductCard product={p} />)}</div>
+      </div>
+    </section>
+  )}
+
+  <section class="about">
+    <div class="wrap prose">
+      <h2>{site.about_heading}</h2>
+      <p>{site.about_text}</p>
+    </div>
+  </section>
+
+  {galleryPreview.length > 0 && (
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Recent work</h2>
+          <a href="/gallery/">Full gallery &rarr;</a>
+        </div>
+        <div class="gallery-grid">
+          {galleryPreview.map((g) => (
+            <figure><img src={g.image} alt={g.caption ?? ''} loading="lazy" width="800" height="800" />{g.caption && <figcaption>{g.caption}</figcaption>}</figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <IgBand />
+</Base>
+<style>
+  .hero { padding: 56px 0 40px; }
+  .hero-inner { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
+  .hero-img { height: auto; border-radius: 28px; aspect-ratio: 1; object-fit: cover; width: 100%; transform: rotate(2deg); box-shadow: 0 20px 40px rgb(0 0 0 / .12); }
+  @media (max-width: 800px) { .hero-inner { grid-template-columns: 1fr; } .hero-img { max-width: 420px; } }
+  .section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+  .section-head h2 { margin: 0; }
+  .about { background: #fff3e6; }
+</style>

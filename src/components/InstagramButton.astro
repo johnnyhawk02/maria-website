@@ -1,0 +1,7 @@
+---
+import site from '../data/site.json';
+import InstagramIcon from './InstagramIcon.astro';
+const { label = 'Follow us on Instagram', dm = false, variant = 'primary' } = Astro.props;
+const href = dm ? `https://ig.me/m/${site.instagram_handle}` : `https://www.instagram.com/${site.instagram_handle}/`;
+---
+<a class={`btn btn-${variant}`} href={href} target="_blank" rel="noopener"><InstagramIcon /> {label}</a>

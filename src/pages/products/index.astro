@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import IgBand from '../../components/IgBand.astro';
+import { getCollection } from 'astro:content';
+const products = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);
+---
+<Base title="Products">
+  <section>
+    <div class="wrap">
+      <h1>What we make</h1>
+      <p class="lead">Everything can be personalised with names, colours and designs. Prices are a guide; message us on Instagram for a quote.</p>
+      <div class="card-grid" style="margin-top:32px">{products.map((p) => <ProductCard product={p} />)}</div>
+    </div>
+  </section>
+  <IgBand heading="Seen something you like?" text="Send us a message on Instagram with the item, sizes and your idea, and we'll get back to you with a mock-up and price." />
+</Base>

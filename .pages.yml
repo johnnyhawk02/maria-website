@@ -1,0 +1,67 @@
+# Pages CMS configuration (https://pagescms.org/docs/configuration/)
+media:
+  input: public/images/uploads
+  output: /images/uploads
+  extensions: [jpg, jpeg, png, webp, gif, svg]
+
+content:
+  - name: products
+    label: Products
+    type: collection
+    path: src/content/products
+    filename: "{primary}.md"
+    view:
+      fields: [image, title, price, featured]
+      primary: title
+      sort: [order, title]
+      default:
+        sort: order
+        order: asc
+    fields:
+      - { name: title, label: Product name, type: string, required: true }
+      - { name: image, label: Main photo, type: image, required: true }
+      - { name: photos, label: Extra photos, type: image, list: true, description: "Optional extra photos shown on the product page" }
+      - { name: price, label: Price (optional), type: string, description: "Shown as written, e.g. From £15. Leave blank to hide." }
+      - { name: featured, label: Show on homepage, type: boolean, default: false }
+      - { name: order, label: Display order, type: number, default: 10, description: "Lower numbers show first" }
+      - { name: body, label: Description, type: rich-text }
+
+  - name: gallery
+    label: Gallery
+    type: file
+    path: src/data/gallery.json
+    format: json
+    fields:
+      - name: items
+        label: Photos
+        type: object
+        list: true
+        fields:
+          - { name: image, label: Photo, type: image, required: true }
+          - { name: caption, label: Caption, type: string }
+
+  - name: site
+    label: Page text & settings
+    type: file
+    path: src/data/site.json
+    format: json
+    fields:
+      - { name: business_name, label: Business name, type: string, required: true }
+      - { name: tagline, label: Tagline (used in Google results), type: string }
+      - { name: instagram_handle, label: Instagram username (no @), type: string, required: true }
+      - { name: hero_heading, label: Homepage headline, type: string }
+      - { name: hero_text, label: Homepage intro, type: text }
+      - { name: hero_image, label: Homepage photo, type: image }
+      - { name: about_heading, label: About heading, type: string }
+      - { name: about_text, label: About text, type: text }
+      - { name: custom_heading, label: Custom orders heading, type: string }
+      - { name: custom_text, label: Custom orders intro, type: text }
+      - name: custom_steps
+        label: Custom order steps
+        type: object
+        list: true
+        fields:
+          - { name: title, label: Step title, type: string }
+          - { name: text, label: Step text, type: text }
+      - { name: location, label: Location (footer), type: string }
+      - { name: email, label: Email (optional), type: string }
