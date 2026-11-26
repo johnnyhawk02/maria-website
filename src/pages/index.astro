@@ -4,7 +4,7 @@ import InstagramButton from '../components/InstagramButton.astro';
 import InstagramIcon from '../components/InstagramIcon.astro';
 import ProductCard from '../components/ProductCard.astro';
 import InstagramFeed from '../components/InstagramFeed.astro';
-import site from '../data/site.json';
+import site from '../data/site';
 import { getCollection } from 'astro:content';
 
 const products = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);

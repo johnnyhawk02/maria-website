@@ -1,34 +1,35 @@
 # Pages CMS configuration (https://pagescms.org/docs/configuration/)
+# Kept deliberately small and plain for a non-technical editor.
 media:
   input: public/images/uploads
   output: /images/uploads
-  extensions: [jpg, jpeg, png, webp, gif, svg]
+  extensions: [jpg, jpeg, png, webp, gif]
 
 content:
   - name: products
-    label: Products
+    label: My products
     type: collection
     path: src/content/products
     filename: "{primary}.md"
     view:
-      fields: [image, title, category, code, price]
+      fields: [image, title, price]
       primary: title
-      sort: [order, title]
-      default:
-        sort: order
-        order: asc
+      sort: [title]
     fields:
-      - { name: title, label: Product name, type: string, required: true }
-      - { name: image, label: Main photo, type: image, required: true }
-      - { name: photos, label: Extra photos, type: image, list: true, description: "Optional extra photos shown on the product page" }
-      - { name: price, label: Price (optional), type: string, description: "Shown as written, e.g. From £15. Leave blank to hide." }
-      - { name: category, label: Collection, type: string, description: "Must match one of the collections in Page text & settings, e.g. Tees" }
-      - { name: code, label: Product code, type: string, description: "Short code customers quote in their DM, e.g. TEE-03" }
-      - { name: order, label: Display order, type: number, default: 10, description: "Lower numbers show first" }
-      - { name: body, label: Description, type: rich-text }
+      - { name: image, label: Photo, type: image, required: true }
+      - { name: title, label: Name, type: string, required: true }
+      - { name: price, label: Price, type: string, description: "For example: From £15. Leave empty to hide the price." }
+      - { name: body, label: A few words about it, type: text }
+      - name: category
+        label: Which section?
+        type: select
+        options:
+          values: [Tees, Sweatshirts & hoodies, Kids, Cricut extras]
+      - { name: photos, label: More photos (optional), type: image, list: true }
+      - { name: code, label: Product code (optional), type: string, description: "Customers quote this in their message, e.g. TEE-03" }
 
   - name: gallery
-    label: Gallery
+    label: My photos
     type: file
     path: src/data/gallery.json
     format: json
@@ -39,49 +40,61 @@ content:
         list: true
         fields:
           - { name: image, label: Photo, type: image, required: true }
-          - { name: caption, label: Caption, type: string }
+          - { name: caption, label: "Caption (optional)", type: string }
 
-  - name: site
-    label: Page text & settings
+  - name: business
+    label: My details
     type: file
-    path: src/data/site.json
+    path: src/data/business.json
     format: json
     fields:
       - { name: business_name, label: Business name, type: string, required: true }
-      - { name: tagline, label: Tagline (used in Google results and footer), type: string }
-      - { name: instagram_handle, label: Instagram username (no @), type: string, required: true }
-      - { name: hero_badge, label: "Top of page: small badge", type: string }
-      - { name: hero_line_1, label: "Top of page: headline line 1", type: string }
-      - { name: hero_line_2, label: "Top of page: headline line 2 (pink)", type: string }
-      - { name: hero_text, label: "Top of page: intro", type: text }
-      - { name: hero_image, label: "Top of page: photo", type: image }
-      - { name: hero_quote, label: "Top of page: quote on the photo", type: string }
-      - { name: occasions, label: Occasions strip, type: string, list: true }
-      - { name: intro_eyebrow, label: "Intro: small label", type: string }
-      - { name: intro_heading, label: "Intro: heading", type: string }
-      - { name: intro_text, label: "Intro: text", type: text }
-      - name: process_steps
-        label: How ordering works (steps)
-        type: object
-        list: true
-        fields:
-          - { name: title, label: Step title, type: string }
-          - { name: text, label: Step text, type: text }
-      - { name: categories, label: Collections (in display order), type: string, list: true }
-      - { name: group_heading, label: "Group orders: heading", type: string }
-      - { name: group_text, label: "Group orders: text", type: text }
+      - { name: instagram_handle, label: "Instagram name (without the @)", type: string, required: true }
+      - { name: turnaround, label: How long orders take, type: string }
+      - { name: area_served, label: Where you deliver or collect, type: string }
+      - { name: email, label: "Email (optional)", type: string }
+      - { name: tagline, label: One line about the business, type: string }
+
+  - name: reviews
+    label: Customer reviews
+    type: file
+    path: src/data/reviews.json
+    format: json
+    fields:
       - name: reviews
-        label: Customer reviews
+        label: Reviews
         type: object
         list: true
         fields:
-          - { name: quote, label: Review, type: text }
-          - { name: name, label: Name and occasion, type: string }
-      - { name: contact_heading, label: "Contact: heading", type: string }
-      - { name: contact_text, label: "Contact: text", type: text }
-      - { name: turnaround, label: Current turnaround, type: string }
-      - { name: area_served, label: Area served, type: string }
-      - { name: email, label: Email (optional), type: string }
-      - { name: custom_heading, label: "Custom orders page: heading", type: string }
-      - { name: custom_text, label: "Custom orders page: intro", type: text }
-      - { name: instagram_feed_url, label: Instagram feed URL (Behold, optional), type: string, description: "Leave blank unless Johnny has set this up" }
+          - { name: quote, label: What they said, type: text }
+          - { name: name, label: Who said it, type: string }
+
+  - name: homepage
+    label: Homepage words
+    type: file
+    path: src/data/homepage.json
+    format: json
+    fields:
+      - { name: hero_image, label: Big photo at the top, type: image }
+      - { name: hero_line_1, label: Headline, type: string }
+      - { name: hero_line_2, label: Headline second line (pink), type: string }
+      - { name: hero_text, label: Words under the headline, type: text }
+      - { name: hero_badge, label: Little label above the headline, type: string }
+      - { name: hero_quote, label: Quote on the photo, type: string }
+      - { name: occasions, label: Occasions you make for, type: string, list: true }
+      - { name: intro_heading, label: About you heading, type: string }
+      - { name: intro_text, label: About you, type: text }
+      - { name: intro_eyebrow, label: About you small label, type: string }
+      - name: process_steps
+        label: How ordering works
+        type: object
+        list: true
+        fields:
+          - { name: title, label: Step, type: string }
+          - { name: text, label: Details, type: text }
+      - { name: group_heading, label: Group orders heading, type: string }
+      - { name: group_text, label: Group orders text, type: text }
+      - { name: contact_heading, label: Contact heading, type: string }
+      - { name: contact_text, label: Contact text, type: text }
+      - { name: custom_heading, label: Custom orders page heading, type: string }
+      - { name: custom_text, label: Custom orders page text, type: text }

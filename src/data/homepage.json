@@ -1,0 +1,39 @@
+{
+  "hero_badge": "Handmade to order",
+  "hero_line_1": "Made for you.",
+  "hero_line_2": "Made by hand.",
+  "hero_text": "Personalised tees, sweatshirts, kids' clothes and Cricut gifts for birthdays, hen dos, schools and teams. No order is too small.",
+  "hero_image": "/images/uploads/hero.svg",
+  "hero_quote": "Personalised clothing and gifts for every occasion",
+  "occasions": [
+    "Birthdays",
+    "Hen parties",
+    "Weddings",
+    "Schools & leavers",
+    "Sports teams",
+    "Christmas"
+  ],
+  "intro_eyebrow": "Hello there",
+  "intro_heading": "From your idea to something you can wear",
+  "intro_text": "I'm the maker behind Your Business Name. Every piece is designed, cut and pressed by hand in my little studio. Send me your idea, a photo or just a name, and I'll turn it into something you'll love to wear or give.",
+  "process_steps": [
+    {
+      "title": "Pick a design or share your idea",
+      "text": "Choose something from our collections, or tell us what you have in mind."
+    },
+    {
+      "title": "Message us on Instagram",
+      "text": "DM us the item, sizes and date. We'll send a mock-up and price before we make anything."
+    },
+    {
+      "title": "Collect or post",
+      "text": "Once you're happy, we make it and you collect it or we post it to you."
+    }
+  ],
+  "group_heading": "Ordering for a group?",
+  "group_text": "Hen parties, sports teams, school leavers and staff uniforms. We love a group order and can match designs with names on the back.",
+  "contact_heading": "Let's make something",
+  "contact_text": "The easiest way to order is a quick message on Instagram. Tell us what you'd like and we'll take it from there.",
+  "custom_heading": "Want something custom?",
+  "custom_text": "Got an idea, a photo or a name you want on something? We do one-offs and group orders."
+}

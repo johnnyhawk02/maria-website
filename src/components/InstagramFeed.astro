@@ -3,7 +3,7 @@
 // looks complete; live posts replace them when a feed is available:
 //   1. site.json "instagram_feed_url" (a Behold JSON feed URL), or
 //   2. /api/instagram (Cloudflare function using IG_ACCESS_TOKEN).
-import site from '../data/site.json';
+import site from '../data/site';
 import gallery from '../data/gallery.json';
 import InstagramButton from './InstagramButton.astro';
 const profile = `https://www.instagram.com/${site.instagram_handle}/`;

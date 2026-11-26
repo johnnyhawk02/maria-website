@@ -1,5 +1,5 @@
 ---
-import site from '../data/site.json';
+import site from '../data/site';
 import InstagramIcon from '../components/InstagramIcon.astro';
 const { title, description = site.tagline } = Astro.props;
 const fullTitle = title ? `${title} | ${site.business_name}` : site.business_name;

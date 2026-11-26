@@ -1,5 +1,5 @@
 ---
-import site from '../data/site.json';
+import site from '../data/site';
 import InstagramIcon from './InstagramIcon.astro';
 const { label = 'Follow us on Instagram', dm = false, variant = 'brown' } = Astro.props;
 const href = dm ? `https://ig.me/m/${site.instagram_handle}` : `https://www.instagram.com/${site.instagram_handle}/`;
