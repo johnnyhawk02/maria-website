@@ -3,12 +3,11 @@ import Base from '../layouts/Base.astro';
 import InstagramButton from '../components/InstagramButton.astro';
 import ProductCard from '../components/ProductCard.astro';
 import IgBand from '../components/IgBand.astro';
+import InstagramFeed from '../components/InstagramFeed.astro';
 import site from '../data/site.json';
-import gallery from '../data/gallery.json';
 import { getCollection } from 'astro:content';
 const all = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);
 const featured = (all.filter((p) => p.data.featured).length ? all.filter((p) => p.data.featured) : all).slice(0, 6);
-const galleryPreview = (gallery.items ?? []).slice(0, 6);
 ---
 <Base>
   <section class="hero">
@@ -24,6 +23,8 @@ const galleryPreview = (gallery.items ?? []).slice(0, 6);
       <img class="hero-img" src={site.hero_image} alt="" width="800" height="800" />
     </div>
   </section>
+
+  <InstagramFeed />
 
   {featured.length > 0 && (
     <section>
@@ -43,22 +44,6 @@ const galleryPreview = (gallery.items ?? []).slice(0, 6);
       <p>{site.about_text}</p>
     </div>
   </section>
-
-  {galleryPreview.length > 0 && (
-    <section>
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Recent work</h2>
-          <a href="/gallery/">Full gallery &rarr;</a>
-        </div>
-        <div class="gallery-grid">
-          {galleryPreview.map((g) => (
-            <figure><img src={g.image} alt={g.caption ?? ''} loading="lazy" width="800" height="800" />{g.caption && <figcaption>{g.caption}</figcaption>}</figure>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
 
   <IgBand />
 </Base>

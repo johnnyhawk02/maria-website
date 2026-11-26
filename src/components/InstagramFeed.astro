@@ -1,0 +1,54 @@
+---
+// Latest Instagram posts. Renders gallery photos first (so it always looks
+// complete), then swaps in live posts from /api/instagram when available.
+import site from '../data/site.json';
+import gallery from '../data/gallery.json';
+import InstagramButton from './InstagramButton.astro';
+const profile = `https://www.instagram.com/${site.instagram_handle}/`;
+const fallback = (gallery.items ?? []).slice(0, 6);
+---
+<section class="ig-feed">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Fresh from <a href={profile} target="_blank" rel="noopener">@{site.instagram_handle}</a></h2>
+      <InstagramButton label="Follow" variant="primary" />
+    </div>
+    <div class="ig-grid" data-ig-grid>
+      {fallback.map((g) => (
+        <a href={profile} target="_blank" rel="noopener"><img src={g.image} alt={g.caption ?? ''} loading="lazy" width="400" height="400" /></a>
+      ))}
+    </div>
+  </div>
+</section>
+<script>
+  const grid = document.querySelector<HTMLElement>('[data-ig-grid]');
+  if (grid) {
+    fetch('/api/instagram')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!d?.posts?.length) return;
+        grid.replaceChildren(
+          ...d.posts.map((p: { image: string; url: string; caption: string }) => {
+            const a = document.createElement('a');
+            a.href = p.url; a.target = '_blank'; a.rel = 'noopener';
+            const img = document.createElement('img');
+            img.src = p.image; img.alt = p.caption || 'Instagram post'; img.loading = 'lazy';
+            img.width = 400; img.height = 400;
+            a.append(img);
+            return a;
+          })
+        );
+      })
+      .catch(() => {});
+  }
+</script>
+<style>
+  .section-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+  .section-head h2 { margin: 0; }
+  .section-head h2 a { color: inherit; text-decoration: none; }
+  .ig-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+  .ig-grid a { border-radius: 12px; overflow: hidden; display: block; background: #eee; }
+  .ig-grid img { aspect-ratio: 1; object-fit: cover; width: 100%; height: auto; transition: transform .2s; }
+  .ig-grid a:hover img { transform: scale(1.05); }
+  @media (max-width: 800px) { .ig-grid { grid-template-columns: repeat(3, 1fr); } }
+</style>
