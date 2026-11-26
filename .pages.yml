@@ -1,5 +1,6 @@
 # Pages CMS configuration (https://pagescms.org/docs/configuration/)
-# Kept deliberately small and plain for a non-technical editor.
+# Only products are editable here: the owner just adds new items.
+# Page text, gallery and reviews live in src/data/*.json and are edited in code.
 media:
   input: public/images/uploads
   output: /images/uploads
@@ -25,76 +26,3 @@ content:
         type: select
         options:
           values: [Tees, Sweatshirts & hoodies, Kids, Cricut extras]
-      - { name: photos, label: More photos (optional), type: image, list: true }
-      - { name: code, label: Product code (optional), type: string, description: "Customers quote this in their message, e.g. TEE-03" }
-
-  - name: gallery
-    label: My photos
-    type: file
-    path: src/data/gallery.json
-    format: json
-    fields:
-      - name: items
-        label: Photos
-        type: object
-        list: true
-        fields:
-          - { name: image, label: Photo, type: image, required: true }
-          - { name: caption, label: "Caption (optional)", type: string }
-
-  - name: business
-    label: My details
-    type: file
-    path: src/data/business.json
-    format: json
-    fields:
-      - { name: business_name, label: Business name, type: string, required: true }
-      - { name: instagram_handle, label: "Instagram name (without the @)", type: string, required: true }
-      - { name: turnaround, label: How long orders take, type: string }
-      - { name: area_served, label: Where you deliver or collect, type: string }
-      - { name: email, label: "Email (optional)", type: string }
-      - { name: tagline, label: One line about the business, type: string }
-
-  - name: reviews
-    label: Customer reviews
-    type: file
-    path: src/data/reviews.json
-    format: json
-    fields:
-      - name: reviews
-        label: Reviews
-        type: object
-        list: true
-        fields:
-          - { name: quote, label: What they said, type: text }
-          - { name: name, label: Who said it, type: string }
-
-  - name: homepage
-    label: Homepage words
-    type: file
-    path: src/data/homepage.json
-    format: json
-    fields:
-      - { name: hero_image, label: Big photo at the top, type: image }
-      - { name: hero_line_1, label: Headline, type: string }
-      - { name: hero_line_2, label: Headline second line (pink), type: string }
-      - { name: hero_text, label: Words under the headline, type: text }
-      - { name: hero_badge, label: Little label above the headline, type: string }
-      - { name: hero_quote, label: Quote on the photo, type: string }
-      - { name: occasions, label: Occasions you make for, type: string, list: true }
-      - { name: intro_heading, label: About you heading, type: string }
-      - { name: intro_text, label: About you, type: text }
-      - { name: intro_eyebrow, label: About you small label, type: string }
-      - name: process_steps
-        label: How ordering works
-        type: object
-        list: true
-        fields:
-          - { name: title, label: Step, type: string }
-          - { name: text, label: Details, type: text }
-      - { name: group_heading, label: Group orders heading, type: string }
-      - { name: group_text, label: Group orders text, type: text }
-      - { name: contact_heading, label: Contact heading, type: string }
-      - { name: contact_text, label: Contact text, type: text }
-      - { name: custom_heading, label: Custom orders page heading, type: string }
-      - { name: custom_text, label: Custom orders page text, type: text }
