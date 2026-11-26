@@ -18,12 +18,14 @@ npm run build    # outputs to dist/
 ```
 Content lives in `src/content/products/*.md`, `src/data/site.json` and `src/data/gallery.json`. CMS fields are defined in `.pages.yml`.
 
-## Instagram feed (homepage "Fresh from @…" strip)
-The strip shows gallery photos until a token is set, then the latest 6 Instagram posts via `functions/api/instagram.js` (cached for an hour).
-1. Switch the Instagram account to Business or Creator (Instagram app > Settings > Account type).
-2. In Meta for Developers, create an app with the "Instagram API with Instagram Login" product, add the account, and generate a long-lived access token.
-3. Cloudflare dashboard > Workers & Pages > this project > Settings > Variables and Secrets: add secret `IG_ACCESS_TOKEN`.
-4. Optional but recommended: create a KV namespace and bind it as `IG_KV` so the token refreshes itself; without it the token expires after 60 days.
+## Instagram feed (homepage "Fresh from the studio" strip)
+Shows gallery photos until a feed is connected, then the latest 6 Instagram posts. The account must be Business or Creator (Instagram app > Settings > Account type; free and reversible).
+
+**Easiest: Behold (free tier: 6 posts, daily refresh)**
+1. Sign up at behold.so, connect the Instagram account, create a JSON feed.
+2. Paste the feed URL into Pages CMS > Page text & settings > "Instagram feed URL".
+
+**Alternative: direct Instagram API** via `functions/api/instagram.js` (used when the feed URL is blank). Create a Meta app with "Instagram API with Instagram Login", generate a long-lived token, and add it as the `IG_ACCESS_TOKEN` secret in Cloudflare Pages settings. Bind a KV namespace as `IG_KV` so the token refreshes itself.
 
 ## Link in bio
 Use `https://<domain>/links` as the Instagram bio link.

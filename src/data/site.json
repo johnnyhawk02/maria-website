@@ -1,19 +1,36 @@
 {
   "business_name": "Your Business Name",
-  "tagline": "Custom t-shirts, Cricut designs and personalised gifts, made by hand.",
+  "tagline": "Custom t-shirts, sweatshirts and Cricut gifts, made by hand to order.",
   "instagram_handle": "yourbusiness",
-  "hero_heading": "Made-to-order tees and Cricut creations",
-  "hero_text": "Personalised t-shirts, hoodies, tote bags and gifts for birthdays, hen dos, teams and special days. See our latest work and message us on Instagram to order.",
+  "instagram_feed_url": "",
+  "hero_badge": "Handmade to order",
+  "hero_line_1": "Made for you.",
+  "hero_line_2": "Made by hand.",
+  "hero_text": "Personalised tees, sweatshirts, kids' clothes and Cricut gifts for birthdays, hen dos, schools and teams. No order is too small.",
   "hero_image": "/images/uploads/hero.svg",
-  "about_heading": "Hello, we're Your Business Name",
-  "about_text": "Every piece is designed, cut and pressed by hand at our little studio. We love turning your ideas into something you can wear or gift. Tell us what you have in mind and we'll make it happen.",
-  "custom_heading": "Want something custom?",
-  "custom_text": "Got an idea, a photo or a name you want on something? We do one-offs and group orders.",
-  "custom_steps": [
-    { "title": "Send us a message", "text": "DM us on Instagram with your idea, the item, sizes and when you need it." },
-    { "title": "We design it", "text": "We'll send you a mock-up and a price before anything is made." },
-    { "title": "Collect or post", "text": "Once you're happy, we make it and arrange collection or delivery." }
+  "hero_quote": "Personalised clothing and gifts for every occasion",
+  "occasions": ["Birthdays", "Hen parties", "Weddings", "Schools & leavers", "Sports teams", "Christmas"],
+  "intro_eyebrow": "Hello there",
+  "intro_heading": "From your idea to something you can wear",
+  "intro_text": "I'm the maker behind Your Business Name. Every piece is designed, cut and pressed by hand in my little studio. Send me your idea, a photo or just a name, and I'll turn it into something you'll love to wear or give.",
+  "process_steps": [
+    { "title": "Pick a design or share your idea", "text": "Choose something from our collections, or tell us what you have in mind." },
+    { "title": "Message us on Instagram", "text": "DM us the item, sizes and date. We'll send a mock-up and price before we make anything." },
+    { "title": "Collect or post", "text": "Once you're happy, we make it and you collect it or we post it to you." }
   ],
-  "location": "Based in Your Town",
-  "email": ""
+  "categories": ["Tees", "Sweatshirts & hoodies", "Kids", "Cricut extras"],
+  "group_heading": "Ordering for a group?",
+  "group_text": "Hen parties, sports teams, school leavers and staff uniforms. We love a group order and can match designs with names on the back.",
+  "reviews": [
+    { "quote": "The hen party shirts were perfect and everyone wanted to know where they came from!", "name": "Sarah, Hen party" },
+    { "quote": "So easy to order over Instagram and the hoodie arrived in a few days. My son loves it.", "name": "Jo, Kids' hoodie" },
+    { "quote": "Ordered tees for our whole football team. Great quality and brilliant to deal with.", "name": "Mark, Under-10s coach" }
+  ],
+  "contact_heading": "Let's make something",
+  "contact_text": "The easiest way to order is a quick message on Instagram. Tell us what you'd like and we'll take it from there.",
+  "turnaround": "Usually 7 to 10 days",
+  "area_served": "Your Town and nearby. UK-wide postage available.",
+  "email": "",
+  "custom_heading": "Want something custom?",
+  "custom_text": "Got an idea, a photo or a name you want on something? We do one-offs and group orders."
 }

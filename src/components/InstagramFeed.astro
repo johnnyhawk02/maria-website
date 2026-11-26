@@ -1,54 +1,65 @@
 ---
-// Latest Instagram posts. Renders gallery photos first (so it always looks
-// complete), then swaps in live posts from /api/instagram when available.
+// Latest Instagram posts. Gallery photos render first so the strip always
+// looks complete; live posts replace them when a feed is available:
+//   1. site.json "instagram_feed_url" (a Behold JSON feed URL), or
+//   2. /api/instagram (Cloudflare function using IG_ACCESS_TOKEN).
 import site from '../data/site.json';
 import gallery from '../data/gallery.json';
 import InstagramButton from './InstagramButton.astro';
 const profile = `https://www.instagram.com/${site.instagram_handle}/`;
 const fallback = (gallery.items ?? []).slice(0, 6);
 ---
-<section class="ig-feed">
+<section id="gallery" class="bg-cream">
   <div class="wrap">
-    <div class="section-head">
-      <h2>Fresh from <a href={profile} target="_blank" rel="noopener">@{site.instagram_handle}</a></h2>
-      <InstagramButton label="Follow" variant="primary" />
+    <div class="section-title">
+      <span class="eyebrow">On Instagram</span>
+      <h2>Fresh from the studio</h2>
+      <p>Our latest makes, straight from <a href={profile} target="_blank" rel="noopener">@{site.instagram_handle}</a>.</p>
     </div>
-    <div class="ig-grid" data-ig-grid>
+    <div class="ig-grid" data-ig-grid data-feed={site.instagram_feed_url || ''}>
       {fallback.map((g) => (
         <a href={profile} target="_blank" rel="noopener"><img src={g.image} alt={g.caption ?? ''} loading="lazy" width="400" height="400" /></a>
       ))}
     </div>
+    <div class="actions center"><InstagramButton label={`Follow @${site.instagram_handle}`} /></div>
   </div>
 </section>
 <script>
-  const grid = document.querySelector<HTMLElement>('[data-ig-grid]');
-  if (grid) {
-    fetch('/api/instagram')
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => {
-        if (!d?.posts?.length) return;
-        grid.replaceChildren(
-          ...d.posts.map((p: { image: string; url: string; caption: string }) => {
-            const a = document.createElement('a');
-            a.href = p.url; a.target = '_blank'; a.rel = 'noopener';
-            const img = document.createElement('img');
-            img.src = p.image; img.alt = p.caption || 'Instagram post'; img.loading = 'lazy';
-            img.width = 400; img.height = 400;
-            a.append(img);
-            return a;
-          })
-        );
-      })
-      .catch(() => {});
+  type Post = { image: string; url: string; caption: string };
+  function fromBehold(d: any): Post[] {
+    const list = Array.isArray(d) ? d : d?.posts ?? [];
+    return list.map((p: any) => ({
+      image: p.sizes?.medium?.mediaUrl || (p.mediaType === 'VIDEO' ? p.thumbnailUrl : p.mediaUrl),
+      url: p.permalink,
+      caption: p.prunedCaption || p.caption || '',
+    }));
   }
+  async function load(grid: HTMLElement) {
+    const feed = grid.dataset.feed;
+    let posts: Post[] = [];
+    try {
+      if (feed) posts = fromBehold(await (await fetch(feed)).json());
+      else { const r = await fetch('/api/instagram'); if (r.ok) posts = (await r.json()).posts ?? []; }
+    } catch {}
+    posts = posts.filter((p) => p.image && p.url).slice(0, 6);
+    if (!posts.length) return;
+    grid.replaceChildren(...posts.map((p) => {
+      const a = document.createElement('a');
+      a.href = p.url; a.target = '_blank'; a.rel = 'noopener';
+      const img = document.createElement('img');
+      img.src = p.image; img.alt = (p.caption || 'Instagram post').slice(0, 120); img.loading = 'lazy'; img.width = 400; img.height = 400;
+      a.append(img);
+      return a;
+    }));
+  }
+  const grid = document.querySelector<HTMLElement>('[data-ig-grid]');
+  if (grid) load(grid);
 </script>
 <style>
-  .section-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
-  .section-head h2 { margin: 0; }
-  .section-head h2 a { color: inherit; text-decoration: none; }
-  .ig-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
-  .ig-grid a { border-radius: 12px; overflow: hidden; display: block; background: #eee; }
-  .ig-grid img { aspect-ratio: 1; object-fit: cover; width: 100%; height: auto; transition: transform .2s; }
-  .ig-grid a:hover img { transform: scale(1.05); }
-  @media (max-width: 800px) { .ig-grid { grid-template-columns: repeat(3, 1fr); } }
+  .ig-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  .ig-grid a { border-radius: var(--radius); overflow: hidden; display: block; background: #eee; }
+  .ig-grid img { aspect-ratio: 1; object-fit: cover; width: 100%; transition: transform .3s; }
+  .ig-grid a:hover img { transform: scale(1.06); }
+  .center { justify-content: center; }
+  @media (max-width: 860px) { .ig-grid { grid-template-columns: repeat(3, 1fr); } }
 </style>

@@ -2,11 +2,12 @@
 import Base from '../layouts/Base.astro';
 import InstagramButton from '../components/InstagramButton.astro';
 import site from '../data/site.json';
-const steps = site.custom_steps ?? [];
+const steps = site.process_steps ?? [];
 ---
 <Base title="Custom orders">
   <section>
     <div class="wrap">
+      <span class="eyebrow">Custom orders</span>
       <h1>{site.custom_heading}</h1>
       <p class="lead">{site.custom_text}</p>
       <ol class="steps">
@@ -16,6 +17,7 @@ const steps = site.custom_steps ?? [];
       </ol>
       <div class="actions">
         <InstagramButton label="Message us on Instagram" dm />
+        <span class="small" style="align-self:center">Turnaround: {site.turnaround}</span>
         {site.email && <a class="btn btn-outline" href={`mailto:${site.email}`}>Or email us</a>}
       </div>
     </div>
@@ -24,7 +26,7 @@ const steps = site.custom_steps ?? [];
 <style>
   .steps { list-style: none; padding: 0; margin: 40px 0 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
   .steps li { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
-  .num { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--accent); font-weight: 700; margin-bottom: 12px; }
+  .num { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--pink-soft); color: var(--brown); font-weight: 700; margin-bottom: 12px; }
   .steps h3 { font-size: 1.2rem; }
   .steps p { margin: 0; color: var(--muted); }
 </style>
