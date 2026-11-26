@@ -1,8 +1,7 @@
 ---
 title: Personalised mug
 image: /images/uploads/product-2.svg
-photos: []
-price: From £12
+price: £65
 category: Cricut extras
 code: CRI-02
 order: 6
